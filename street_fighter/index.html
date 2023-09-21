@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/png" href="sffavicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="sffavicon-16x16.png" sizes="16x16" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,700;1,300&family=Bebas+Neue&family=Black+Ops+One&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Street Fight VI</title>
@@ -11,15 +16,34 @@
         }
         h1 {
             color: black;
-            background-color: whitesmoke
+            background-color: whitesmoke;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Black Ops One', cursive;
+        }
+        h3 {
+            color: black;
+            background-color: whitesmoke;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-family: 'Bebas Neue', sans-serif;
+            font-family: 'Black Ops One', cursive;
+            
         }
         h4 {
             color: black;
-            background-color: whitesmoke
+            background-color: whitesmoke;
         }
         .side {
             float: right;
             margin: 70px;
+        }
+        #container {
+            display: flex;
+        }
+        #container p {
+            margin-left: 1em;
+            margin-top: 5%;
+            margin-right: 3%;
         }
     </style>
 </head>
@@ -30,32 +54,110 @@
     </header>
 
     <main>
+        <!-- Main page image -->
         <img style="margin-left: 70px;" src="images/Street-Fighter-6-Full-Roster.webp" 
-        alt="Street Fighter 6" width="1720" height="720"></img>
+        alt="Street Fighter 6" width="1720" height="720">
         <hr>
 
-        <h1 style="margin-left: 70px; width: 700px; margin-top: 100px; 
-        margin-bottom: 0px;">
-        Description
-        </h1>
+        <!-- Description Section header -->
+        <h1 style="margin-left: 70px; width: 700px;">Description</h1>
         
-        <h4 style="margin-left: 70px; width: 700px; margin-top: 0px;">
+        <!-- Description section content -->
+        <h4 style="margin-left: 70px; width: 93%; margin-top: 0px;">
             <br>
-            <p style="margin-left: 15px;">Street Fighter 6 is the first title in the long-running fighting game 
-            series to take place after the events of Street Fighter III: 3rd Strike.
-            The player can enter the storyline either with a custom character seeking 
-            to rise in the ranks of street fighters, or play the usual "arcade" mode 
-            and follow the stories related to the canon characters
-            </p>
-            <br>
+            <div id='container'>
+                <img class="side" style="height: 50%; width: 50%; " src="images/SF_Featured_2.webp" 
+                alt="Featured characters, Juri and Kimberly">
+                <p style="font-size: 150%;">Street Fighter 6 is the first title in the long-running fighting game
+                    series to take place after the events of Street Fighter III: 3rd Strike.
+                    The player can enter the storyline either with a custom character seeking 
+                    to rise in the ranks of street fighters, or play the usual "arcade" mode 
+                    and follow the stories related to the canon characters
+                </p>
+            </div>
         </h4>
+        <hr>
 
-        <img class="side" style="scale: 0.5;" src="images/SF_Featured_2.webp" 
-        alt="Featured characters, Juri and Kimberly">
+        <!-- Game category section -->
+        <h1 style="margin-left: 70px; width: 700px;">Game Categories</h1>
+
+        <!-- Game category section content -->
+        <h4 style="margin-left: 70px; width: 93%; margin-top: 0px;">
+            <br>
+            <div id='container'>
+                <ul style="font-size: 150%;">
+                    <li>Genre: Action</li>
+                    <li>Gameplay: Fighting</li>
+                    <li>Number of Online Players: 2-16</li>
+                    <li>Number of Offline Players: 1-2</li>
+                    <li>ESRB Rating: Teen</li>
+
+                </ul>
+                <img class="side" style="height: 30%; width: 30%;" 
+                src="images/sf_gameplay1.png" alt="">
+                <img class="side" style="height: 30%; width: 30%; " 
+                src="images/sf_gameplay2.jpg" alt="">
+                
+            </div>
+        </h4>
+        <hr>
     </main>
 
     <footer>
-        
+        <!-- Publishing Info section -->
+        <h3 style="margin-left: 70px; width: 700px;">Publishing Info</h3>
+
+        <!-- Publishing Info section content -->
+        <h4 style="margin-left: 70px; width: 93%; margin-top: 0px;">
+            <br>
+            <div id='container'>
+                <ul>
+                    <li>Publishers: Capcom Co., Ltd</li>
+                    <li>Developers: Capcom Co., Ltd</li>
+                    <li>Release Date: June 2nd, 2023</li>
+                    <li>Number of Offline Players: 1-2</li>
+                    <li>ESRB Rating: Teen</li>
+
+                </ul>
+            </div>
+        </h4>
+        <!-- Quoted Review -->
+        <h4 style="margin-left: 70px; width: 93%;">
+            <blockquote>
+                <i>
+                    Since this is Capcom's latest fighting game, the graphics are absolutely 
+                    great and guarantees powerful fighting tactics. The sound ensures that 
+                    it is clearer and louder than previous Street Fighter games. --
+                    <a href="https://www.mobygames.com/game/203910/street-fighter-6/user-review/2693944/" 
+                    target="_blank">https://www.mobygames.com/game/203910/street-fighter-6/user-review/2693944/</a>
+                </i>
+            </blockquote>
+        </h4>
+        <hr>
+
+        <!-- Sources -->
+        <h3 style="background-color: dimgrey; margin-left: 70px; width: 700px;">Sources</h3>
+
+        <h4 style="background-color: dimgrey; margin-left: 70px; width: 700px; margin-top: 0px;">
+            <p>Web Source:<br>
+                <a href="https://www.mobygames.com/game/203910/street-fighter-6/" 
+                target="_blank">www.mobygames.com</a>
+            </p>
+            
+            <p>Images: <br>
+                <a href="https://www.rollingstone.com/wp-content/uploads/2022/08/SF_Featured_2.png?
+                w=1581&h=1054&crop=1" target="_blank">Juri and Kimberly Artwork</a><br>
+                <a href="https://www.ggrecon.com/guides/street-fighter-6-roster-all-characters-dlc-fighters/"
+                target="_blank">Full cast heading image</a><br>
+                <a href="https://boingboing.net/2022/06/21/street-fighter-6-might-change-fighting-games-forever.html" 
+                target="_blank">Gameplay image 2</a><br>
+                <a href="https://www.mobygames.com/game/203910/street-fighter-6/screenshots/windows/1137340/" 
+                target="_blank">Gameplay image 1</a><br>
+                <a href="https://www.clipartmax.com/middle/m2i8d3G6i8m2Z5i8_street-fighter-5-logo-image-result-for-street-fighter-street-fighter-v/" 
+                target="_blank">Street Fighter 5 Logo Image</a>
+
+            </p>
+        </h4>
     </footer>
 </body>
 </html>
