@@ -1,0 +1,66 @@
+body {
+    background-color: #ffd5e5;
+}
+header
+{
+    margin: auto 35%;
+    line-height: 10%;
+    border-bottom: 5px dotted #FFAFCC;
+}
+h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Black Ops One', cursive;
+    font-family: 'Lovers Quarrel', cursive;
+    font-size: 700%;
+    color: #A2D2FF;
+}
+h2 {
+    background-color: #f6fdb3;
+    color: #CDB4DB;
+    margin-left: 15%;
+    font-size: 300%;
+    line-height: 10%;
+    padding: 40px;
+    border: 5px dashed #CDB4DB;
+    box-shadow: 10px 10px 10px;
+}
+p {
+    width: 33%;
+    margin: auto 16%;
+    padding: 30px;
+    background-color: #BDE0FE;
+    border: 5px dotted #A2D2FF;
+    border-radius: 10%;
+    font-size: 135%;
+    line-height: 140%;
+    box-shadow: 10px 10px 10px #A2D2FF;
+}
+.aboutPhoto {
+    width: auto; 
+    float: right; 
+    margin-left: 30px; 
+    margin-right: 16%;
+    border: 8px dashed #FFAFCC; 
+    box-shadow: 10px 10px 10px #FFAFCC;
+}
+.sectHead {
+    margin-left: 2%;
+    width: 40%;
+}
+a:link {color: #b173d4;}
+a:visited  {color: gray;}
+a:hover {color: #CDB4DB;}
+a:active {color: #FFAFCC;}
+#dollBorderOne {
+    border:5px dotted #FFAFCC;
+    float: right; margin-right: 5%
+}
+#dollBorderTwo {
+    border:5px dashed #A2D2FF;
+    float: right; margin-right: 5%;
+}
+#dollBorderThree {
+    border:5px dotted #FFAFCC;
+    margin-left: 5%;
+}
