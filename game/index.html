@@ -11,7 +11,7 @@
         rel="stylesheet">
         <style>
             main {
-                border: 1px solid black;
+                border: 3px solid black;
                 margin: 0 20%;
                 padding: 0 2rem;
             }
@@ -24,6 +24,10 @@
                 }
             h2 {
                 color:#184377;
+                background-color: rgb(255, 173, 79);
+                border:3px solid red;
+                padding: 1%;
+                width: 20%;
             }
             blockquote { 
                 background-color: rgb(255, 110, 14);
@@ -36,7 +40,8 @@
                 }
             .side {
                 float: right;
-                margin: 0 12px;
+                margin: 0 10%;
+                border:3px dashed #D9ED92;
             }
             #sourceInfo * {
                 border: 1px solid gray;
@@ -44,6 +49,9 @@
             footer {
                 background-color: #D9ED92;
                 padding: 1rem 2rem;
+            }
+            .imgBorder {
+                border:3px dashed #D9ED92;
             }
         </style>
     </head>
@@ -56,9 +64,9 @@
             <h1>Dig Dug</h1>
         </header>
         
-        <main>
+        <main style="padding-bottom: 2%;">
             <h2>Description</h2>
-            <p style="margin: 0 10%;"> Dig Dug is a 1-2 player arcade game in which you have to use 
+            <p style="margin: 0 10%; padding-bottom: 3%;"> Dig Dug is a 1-2 player arcade game in which you have to use 
                 your shovel to dig your way through the earth. Stopping you 
                 from doing this are two monsters, called Pooka and Fygar, 
                 who will continually chase you around. The only weapon that 
@@ -73,9 +81,12 @@
             Perspective: Side view<br>
             Visual: <b>Fixed</b><br>
             Gameplay: Arcade<br>
+
+            <a href="#sourceInfo">Go to Sources</a><br>
             <br>
             
-            <a href="big/pic1.html"><img src="images/dig-dug-burnt.png" alt="Screenshot of Dig Dug Gameplay"></a>
+            <a href="big/pic1.html"><img class="imgBorder" style="margin-left: 20%;" src="images/dig-dug-burnt.png" 
+                alt="Screenshot of Dig Dug Gameplay"></a>
             <img class="side" src="images/fygar_inflate.png" alt="">
             <hr>
             <h4><i>Quote</i></h4>
@@ -83,7 +94,8 @@
             <blockquote>
                 <i>
                     This definitely goes under the heading of "Games That Were Made While a Programmer Was on Drugs," or at least had a good imagination. And maybe they were into horror movies too.
-                    -- https://www.mobygames.com/mobyrank/source/sourceId,540/
+                    --<a href="https://www.mobygames.com/mobyrank/source/sourceId,540/" target="_blank">
+                        https://www.mobygames.com</a>
                     
                 </i>>    
             </blockquote>
@@ -96,10 +108,13 @@
             <a href="https://www.mobygames.com/game/arcade/dig-dug" 
             target="_blank">www.mobygames.com</a><br>
                 
-            Publishing Info<br>
-            Published by: Atari, Inc.<br>
-            Developed by: <abbr title="Nakamura Manufacturing Company">Namco </abbr>Limited<br>
-            Released: Apr, 1982<br>
+            <div id="#sourceInfo" >
+                Publishing Info<br>
+                Published by: Atari, Inc.<br>
+                Developed by: <abbr title="Nakamura Manufacturing Company">Namco </abbr>Limited<br>
+                Released: Apr, 1982<br>
+            </div>
+            
       
         </footer>
 
