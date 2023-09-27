@@ -1,12 +1,12 @@
 /* Working in this file for FlexBox */
 figure {
     max-width: 650px;
-    overflow: scroll;
+    overflow: hidden;
     margin-left: auto;
     margin-right: auto;
-    img {
-        width: 100%;
-    }
+}
+figure img {
+    width: 100%;
 }
 header, main, footer {
     width: 90%;
@@ -19,6 +19,20 @@ header, main, footer {
     
 }
 .tet {
-    flex: 1 0 450px;
-    border: 1px solid black
+    flex: 0 0 450px;
+    text-align: center;
+}
+.tet img {
+    width: 60%;
+}
+span {
+    display:block;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 130%;
+    font-weight: bold;
+}
+.aliases {
+    text-align: left;
+    margin: 1em;
 }
