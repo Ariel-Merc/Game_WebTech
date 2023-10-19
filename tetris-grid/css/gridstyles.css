@@ -115,14 +115,22 @@ ul.menu li:hover ul {
     grid-column: 2/span 2;
     grid-row: 2/span 3;
 }
-/* #t img {
+ #t img {
     transform-origin: 0 0;
-    transform:  translateX(205px) rotate(90deg);
-} */
-/* #t {
-    grid-column: 2/span 2;
-    grid-row: 2/span 3;
-} */
+    transform: translateY(405px) rotate(-90deg);
+}
+ #j img {
+    transform-origin: 0 0;
+    transform: translateX(105px) rotate(90deg);
+} 
+#l img {
+    transform-origin: 0 0;
+    transform: translateY(305px) rotate(-90deg);
+} 
+#s img {
+    transform-origin: 0 0;
+    transform: translateY(305px) rotate(-90deg);
+} 
 
 img {
     transition-property: transform;
