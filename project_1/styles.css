@@ -198,20 +198,19 @@ h2 {
   .mainIMG {
     grid-area: mainIMG;
     margin-top: 10px;
-    margin-left: 20px;
     overflow: hidden;
   }
 
   .sidebar {
     grid-area: sidebar;
-    margin: 10px 0px 0 30px;
+    margin: 10px 0 0 0;
     background-color: #4f698b;
   }
 
   article {
     grid-area: article;
     border-bottom: 2px dashed black;
-    margin-right: 4%;
+    margin-right: 3.5%;
   }
 
   .subIMG {
@@ -245,7 +244,7 @@ h2 {
     margin: 0 auto;
     padding: 0;
     text-align: center;
-    font-size: 350%;
+    font-size: 270%;
   }
 
   .hr-linesFirst:after {
