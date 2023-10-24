@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>DOM-3</title>
+    <style>
+        body {
+            border: 1px solid gray;
+        }
+
+        p b {
+            transform: rotate(20deg)
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My Page</h1>
+    <h2>Info</h2>
+    <h2>Pictures</h2>
+    <h2>More Info</h2>
+    <p>Blah <b>Blah</b> Blah</p>
+    <p>Blah <b>Blah</b> Blah</p>
+    <p id="lastParagraph">Blah <b>Blah</b> Blah</p>
+    <footer>Copyright &copy; <b>20XX</b></footer>
+    <script>
+        "use strict";
+
+        // add your own code here.
+        let h1 = document.querySelector("h1");
+        h1.innerHTML = "My UFO Page";
+
+        let h2 = document.querySelector("h2");
+        h2.innerHTML = "My UFO Info";
+
+        let h2nd = document.querySelector("h2:nth-of-type(2)");
+        h2nd.innerHTML = "My UFO Pictures";
+
+        let h2rd = document.querySelector("h2:nth-of-type(3)");
+        h2rd.innerHTML = "";
+
+        let bodyList = document.querySelectorAll("body");
+        for (let element of bodyList)
+        {
+            element.style.fontFamily = "sans-serif";
+            element.style.color = "#c41616";
+        }
+
+        let p1 = document.querySelector("p");
+        p1.innerHTML = "Report your UFO sightings here: <a href= 'http://www.nuforc.org'>http://www.nuforc.org</a>";
+
+
+    </script>
+</body>
+
+</html>
