@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Web Apps-4-HW</title>
+    <style>
+        body {
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>My Favorites</h1>
+    <h2>My Favorite Anime</h2>
+
+    <ol id="colorsList">
+
+    </ol>
+
+    <h2>My Favorite Foods</h2>
+
+    <ol id="foodsList">
+
+    </ol>
+
+    <h2>My Favorite Links</h2>
+
+    <ol id="linksList">
+
+    </ol>
+
+    <script>
+        "use strict";
+        let anime = ["Jujutsu Kaisen", "86", "TGCF", "MDZS", "Tokyo Revengers"];
+        let foods = ["pasta", "steak", "lomein","fries", "CBR Sandwiches" ]; // add some foods
+
+        // Optional - can you figure out how to pull both the key AND the value
+        // from the `links` object literal?
+        let links = {
+            "RIT": "http://www.rit.edu",
+            "RWAG": "https://www.facebook.com/RWAGclub",
+            "New Media Club": "http://newmediaclub.cias.rit.edu"
+        }
+
+        function createList(listElement,array){
+            for (let i = 0; i < array.length; i++)
+            {
+                let listObj = document.createElement("li");
+                listObj.innerHTML = array[i];
+            
+                let orderedList = document.querySelector("ol");
+                orderedList.appendChild(listObj);
+            
+            }
+        }
+
+        
+
+        for (const element of foods)
+        {
+            let listObj2 = document.createElement("li");
+            listObj2.innerHTML = element;
+            
+            let orderedList2 = document.querySelector("ol:nth-of-type(2)");
+            orderedList2.appendChild(listObj2);
+        }
+
+    </script>
+</body>
+
+</html>

@@ -49,7 +49,24 @@
 
         let p1 = document.querySelector("p");
         p1.innerHTML = "Report your UFO sightings here: <a href= 'http://www.nuforc.org'>http://www.nuforc.org</a>";
+        let pList = document.querySelectorAll("p")
+        for (let element of pList)
+        {
+            element.style.color = "green";
+            element.style.fontWeight = "bold";
+            element.style.fontSize = "2em";
+            element.style.textTransform = "uppercase";
+            element.style.textShadow = "3px 2px #A44"
+        }
 
+        let p2 = document.querySelector("p:nth-of-type(2)");
+        p2.innerHTML = "";
+
+        let p3 = document.querySelector("p:nth-of-type(3)");
+        p3.innerHTML = "<img src='images/ufo.jpg' alt=''></img>";
+
+        let footer = document.querySelector("footer");
+        footer.innerHTML = "Copyright &copy; <b>2023</b> Ariel Mercurius";
 
     </script>
 </body>
