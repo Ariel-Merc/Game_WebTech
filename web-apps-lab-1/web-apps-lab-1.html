@@ -7,13 +7,33 @@
      "use strict";
      // 1) Common JS Objects
      let colors = ["red", "green", "blue"]; // Array literal
-     let person = {name:"Fred", age:20};   // Object literal
+     let person = {name:"Fred", age:20, school:"RIT"};   // Object literal
      let month = new Date().getMonth(); 
      let age = Math.round(20.999);
      let age2 = Math.floor(20.999);
 
      // add your new code here.
-      
+     colors.push("pink");
+     console.log(colors[colors.length-1])
+
+     for (let element of colors)
+     {
+      console.log(element);
+     }
+     
+     console.log(person.school);
+     
+     let start = new Date(1970);
+     let end = new Date();
+     let elapsed = Math.abs(end - start) / 1000;
+     console.log(elapsed);
+
+     console.log(Math.PI);
+     console.log(Math.abs(999));
+
+     let greet = "Hello";
+     console.log(greet.toUpperCase());
+
 </script>
 </head>
 <body>
