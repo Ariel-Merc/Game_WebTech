@@ -44,19 +44,15 @@
             "New Media Club": "http://newmediaclub.cias.rit.edu"
         }
 
-        function createList(listElement,array){
-            for (let i = 0; i < array.length; i++)
-            {
-                let listObj = document.createElement("li");
-                listObj.innerHTML = array[i];
+        for (let i = 0; i < anime.length; i++)
+        {
+            let listObj = document.createElement("li");
+            listObj.innerHTML = anime[i];
             
-                let orderedList = document.querySelector("ol");
-                orderedList.appendChild(listObj);
+            let orderedList = document.querySelector("ol");
+            orderedList.appendChild(listObj);
             
-            }
         }
-
-        
 
         for (const element of foods)
         {
@@ -65,6 +61,15 @@
             
             let orderedList2 = document.querySelector("ol:nth-of-type(2)");
             orderedList2.appendChild(listObj2);
+        }
+
+        for (let key in links)
+        {
+            let listObj3 = document.createElement("li");
+            listObj3.innerHTML = "<a href= '${key}'>${links[i]}</a>";
+            
+            let orderedList3 = document.querySelector("ol:nth-of-type(3)");
+            orderedList3.appendChild(listObj3);
         }
 
     </script>
