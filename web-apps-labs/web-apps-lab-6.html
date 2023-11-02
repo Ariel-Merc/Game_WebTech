@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Web Apps-4-HW</title>
+    <title>Web Apps-6-HW</title>
     <style>
         body {
             border: 1px solid gray;
@@ -34,42 +34,43 @@
     <script>
         "use strict";
         let anime = ["Jujutsu Kaisen", "86", "TGCF", "MDZS", "Tokyo Revengers"];
-        let foods = ["pasta", "steak", "lomein","fries", "CBR Sandwiches" ]; // add some foods
+        let foods = ["pasta", "steak", "lomein", "fries", "CBR Sandwiches"]; // add some foods
 
-        // Optional - can you figure out how to pull both the key AND the value
-        // from the `links` object literal?
         let links = {
-            "RIT": "http://www.rit.edu",
-            "RWAG": "https://www.facebook.com/RWAGclub",
-            "New Media Club": "http://newmediaclub.cias.rit.edu"
+            "AO3": "https://archiveofourown.org/",
+            "Youtube": "https://www.youtube.com/",
+            "Twitter": "https://twitter.com/"
         }
 
-        for (let i = 0; i < anime.length; i++)
-        {
+        for (let i = 0; i < anime.length; i++) {
             let listObj = document.createElement("li");
             listObj.innerHTML = anime[i];
-            
+
             let orderedList = document.querySelector("ol");
             orderedList.appendChild(listObj);
-            
+
         }
 
-        for (const element of foods)
-        {
+        for (const element of foods) {
             let listObj2 = document.createElement("li");
             listObj2.innerHTML = element;
-            
+
             let orderedList2 = document.querySelector("ol:nth-of-type(2)");
             orderedList2.appendChild(listObj2);
         }
 
-        for (let key in links)
-        {
+        for (let key in links) {
+            let i = 0;
+            let linkObj = document.createElement("a");
+            linkObj.href = links[key];
+            linkObj.innerHTML = key;
+
             let listObj3 = document.createElement("li");
-            listObj3.innerHTML = "<a href= '${key}'>${links[i]}</a>";
-            
+            listObj3.appendChild(linkObj);
+
             let orderedList3 = document.querySelector("ol:nth-of-type(3)");
             orderedList3.appendChild(listObj3);
+            i++;
         }
 
     </script>
