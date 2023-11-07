@@ -15,10 +15,14 @@
         "use strict"
 
         // add new list for Boo's to html
-        let booList = document.createElement("ul");
-        booList.id = "boos"
-        //let lineupT = document.querySelector("#goombas");
-        // lineupT.appendChild(booList);
+        let goombaHeader = document.createElement("h1");
+        goombaHeader.innerHTML = "Goombas";
+        let booHeader = document.createElement("h1");
+        booHeader.innerHTML = "Boos";
+        // let goombaList = document.querySelector("ul");
+        // goombaList.id = "goombas"
+        // let booList = document.createElement("ul");
+        // booList.id = "boos"
 
 
         let monsters = [];      // our array of monsters
@@ -29,7 +33,7 @@
          */
         window.onload = function () {
             makeSampleMonsters();
-            showMonsters();
+            showMonsters("goomba");
         }
 
         /**
@@ -39,15 +43,15 @@
         function makeSampleMonsters() {
             let monster;
 
-            monster = makeGoomba("John", 20, 30, 100);
+            monster = makeGoomba("John", "goomba", 20, 30, 100);
             monsters.push(monster);
-            monster = makeGoomba("Fred", 30, 100, 150);
+            monster = makeGoomba("Fred", "goomba", 30, 100, 150);
             monsters.push(monster);
-            monster = makeGoomba("Alice", 40, 150, 200);
+            monster = makeGoomba("Alice", "goomba", 40, 150, 200);
             monsters.push(monster);
-            monster = makeBoo("Spectra", 50, 70, 130);
+            monster = makeBoo("Spectra", "boo", 50, 70, 130);
             monsters.push(monster);
-            monster = makeBoo("Porter", 30, 50, 90);
+            monster = makeBoo("Porter", "boo", 30, 50, 90);
             monsters.push(monster);
 
         }
@@ -56,20 +60,31 @@
          * Function that shows our monsters (just Goombas for now)
          * 
          */
-        function showMonsters() {
-            let goombaList = document.querySelector("#goombas");
+        function showMonsters(id) {
+            let lineUp = document.querySelector("#lineUp");
+            lineUp.appendChild(goombaHeader);
+            lineUp.appendChild(booHeader);
+            // lineUp.appendChild(goombaList);
+            // lineUp.appendChild(booList);
+
+            let monsterList = document.createElement("ul");
+            monsterList.id = id;
+            lineUp.appendChild(monsterList);
 
             for (let i = 0; i < monsters.length; i++) {
                 let liStr = "";
                 let li = document.createElement("li");
 
-                for (let key in monsters[i]) {
-                    if (typeof monsters[i][key] !== "function") {
-                        liStr += `<b>${key}:</b> ${monsters[i][key]}<br />`;
+                if (monsters[i].type == id) {
+                    for (let key in monsters[i]) {
+                        if (typeof monsters[i][key] !== "function") {
+                            liStr += `<b>${key}:</b> ${monsters[i][key]}<br />`;
+                        }
                     }
+                    li.innerHTML = liStr;
+                    monsterList.appendChild(li);
                 }
-                li.innerHTML = liStr;
-                goombaList.appendChild(li);
+
             }
         }
 
@@ -93,9 +108,10 @@
          * Create a Goomba.
          * 
          */
-        function makeGoomba(name, hp, speed, score) {
+        function makeGoomba(name, type, hp, speed, score) {
             let goomba = createBaseMonster();
             goomba.name = name;
+            goomba.type = type;
             goomba.hp = hp;
             goomba.speed = speed;
             goomba.score = score;
@@ -112,9 +128,10 @@
          * Create a Boo.
          * 
          */
-         function makeBoo(name, hp, speed, score) {
+        function makeBoo(name, type, hp, speed, score) {
             let boo = createBaseMonster();
             boo.name = name;
+            boo.type = type;
             boo.hp = hp;
             boo.speed = speed;
             boo.score = score;
@@ -142,9 +159,6 @@
 
 <body>
     <div id="lineUp">
-        <h1>Goombas</h1>
-        <ul id="goombas">
-        </ul>
     </div>
 </body>
 
