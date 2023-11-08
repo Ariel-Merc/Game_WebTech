@@ -14,17 +14,6 @@
     <script>
         "use strict"
 
-        // add new list for Boo's to html
-        let goombaHeader = document.createElement("h1");
-        goombaHeader.innerHTML = "Goombas";
-        let booHeader = document.createElement("h1");
-        booHeader.innerHTML = "Boos";
-        // let goombaList = document.querySelector("ul");
-        // goombaList.id = "goombas"
-        // let booList = document.createElement("ul");
-        // booList.id = "boos"
-
-
         let monsters = [];      // our array of monsters
 
         /**
@@ -33,7 +22,8 @@
          */
         window.onload = function () {
             makeSampleMonsters();
-            showMonsters("goomba");
+            showMonsters("goomba", "Goombas");
+            showMonsters("boo", "Boos");
         }
 
         /**
@@ -60,13 +50,14 @@
          * Function that shows our monsters (just Goombas for now)
          * 
          */
-        function showMonsters(id) {
+        function showMonsters(type, id) {
+            // add header
+            let header = document.createElement("h1");
+            header.innerHTML = id;
             let lineUp = document.querySelector("#lineUp");
-            lineUp.appendChild(goombaHeader);
-            lineUp.appendChild(booHeader);
-            // lineUp.appendChild(goombaList);
-            // lineUp.appendChild(booList);
+            lineUp.appendChild(header);
 
+            // create list
             let monsterList = document.createElement("ul");
             monsterList.id = id;
             lineUp.appendChild(monsterList);
@@ -75,7 +66,7 @@
                 let liStr = "";
                 let li = document.createElement("li");
 
-                if (monsters[i].type == id) {
+                if (monsters[i].type == type) {
                     for (let key in monsters[i]) {
                         if (typeof monsters[i][key] !== "function") {
                             liStr += `<b>${key}:</b> ${monsters[i][key]}<br />`;

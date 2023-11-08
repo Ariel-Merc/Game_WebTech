@@ -1,0 +1,219 @@
+* {
+    background-color: rgb(55, 132, 168);
+}
+
+body {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-areas: "header" "main" "footer";
+}
+
+header {
+    grid-area: header;
+    border: 1px solid black;
+    background-color: brown;
+    margin: 0 3% 0 3%;
+    border-radius: 20px;
+}
+
+h1 {
+    font-family: 'Metal Mania';
+    font-size: 120%;
+    padding: 0 10px 0 10px;
+    background-color: transparent;
+}
+
+main {
+    grid-area: main;
+    margin: 10% 6% 1% 6%;
+    overflow: hidden;
+}
+img {
+    max-width: 300px;
+}
+
+footer {
+    grid-area: footer;
+    border: 1px solid black;
+    background-color: brown;
+    margin: 10% 3% 0 3%;
+    border-radius: 20px;
+}
+
+h4 {
+    font-size: 100%;
+    margin: 1% 30% 1% 30%;
+    background-color: transparent;
+}
+
+.container {
+    position: relative;
+    text-align: center;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -90%);
+    font-size: 90%;
+    color: white;
+    background-color: transparent;
+}
+
+button {
+    font-family: 'Metal Mania';
+    font-size: 130%;
+    background-color: wheat;
+    border-color: brown;
+    border-radius: 20px;
+}
+button:hover {
+    background-color: rgb(35, 85, 109);
+}
+button:active {
+    color: white;
+}
+
+@media screen and (min-width: 320px){
+    * {
+        background-color: rgb(55, 132, 168);
+    }
+    
+    body {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-areas: "header" "main" "footer";
+    }
+    
+    header {
+        grid-area: header;
+        border: 1px solid black;
+        background-color: brown;
+        margin: 0 3% 0 3%;
+        border-radius: 20px;
+    }
+    
+    h1 {
+        font-family: 'Metal Mania';
+        font-size: 200%;
+        padding: 0 10px 0 10px;
+        background-color: transparent;
+    }
+    
+    main {
+        grid-area: main;
+        margin: 10% 6% 1% 6%;
+        overflow: hidden;
+    }
+    img {
+        max-width: 400px;
+    }
+    
+    footer {
+        grid-area: footer;
+        border: 1px solid black;
+        background-color: brown;
+        margin: 10% 3% 0 3%;
+        border-radius: 20px;
+    }
+    
+    h4 {
+        font-size: 150%;
+        margin: 1% 30% 1% 30%;
+        background-color: transparent;
+    }
+    
+    .container {
+        position: relative;
+        text-align: center;
+    }
+    
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 100%;
+        color: white;
+        background-color: transparent;
+    }
+    
+    button {
+        font-family: 'Metal Mania';
+        font-size: 150%;
+        background-color: wheat;
+    }
+}
+
+
+@media screen and (min-width: 900px){
+    * {
+        background-color: rgb(55, 132, 168);
+    }
+
+    body {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-areas: "header" "main" "footer";
+    }
+
+    header {
+        grid-area: header;
+        border: 1px solid black;
+        background-color: brown;
+        margin: 0 18% 0 18%;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-family: 'Metal Mania';
+        font-size: 500%;
+        margin: 0 7% 0 7%;
+        padding: 0;
+        background-color: transparent;
+    }
+
+    main {
+        grid-area: main;
+        margin: 2% 18% 1% 18%;
+        overflow: hidden;
+    }
+    img {
+        max-width: 100%;
+    }
+
+    footer {
+        grid-area: footer;
+        border: 1px solid black;
+        background-color: brown;
+        margin: 0% 18% 0% 18%;
+    }
+
+    h4 {
+        font-size: 200%;
+        margin: 1% 40% 1% 40%;
+        background-color: transparent;
+    }
+
+    .container {
+        position: relative;
+        text-align: center;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-42%, -50%);
+        font-size: 200%;
+        color: white;
+        background-color: transparent;
+    }
+
+    button {
+        font-family: 'Metal Mania';
+        font-size: 150%;
+        background-color: wheat;
+    }
+}

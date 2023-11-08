@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JJK Domain Expansions</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+    
+</head>
+
+<body>
+    <header>
+        <h1>Jujutsu Kaisen Domain Expansions</h1>
+    </header>
+
+    <main class="container">
+        <img src="images/mainIMG.jpg" alt="Jujutsu Kaisen Opening Image">
+        <p class="centered">testing</p>
+        <p><button id="colorButton" type="button">Generate Domain</button></p>
+    </main>
+
+    <footer>
+        <h4>Ariel Mercurius</h4>
+    </footer>
+
+    <script>
+        "use strict";
+        let domains = ["Infinite Void - Gojo Satoru",
+            "Malevolent Shrine - Sukuna",
+            "Chimera Shadow Garden - Fushiguro Megumi",
+            "Self-Embodiment of Perfection - Mahito",
+            "Idle Death Gamble - Hakari Kinji",
+            "Deadly Sentencing - Higuruma Hiromi"
+        ];
+
+        let displayQuote = function (array) {
+            let i = Math.floor(Math.random() * array.length);
+            let quote = document.querySelector("p");
+            quote.innerHTML = array[i];
+        }
+        displayQuote(domains);
+
+        let button = document.querySelector("p:nth-of-type(2)");
+        button.onclick = function () {
+            let i = Math.floor(Math.random() * domains.length);
+            let quote = document.querySelector("p");
+            quote.innerHTML = domains[i];
+        }
+
+    </script>
+</body>
+
+</html>
