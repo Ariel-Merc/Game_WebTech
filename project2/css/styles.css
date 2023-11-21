@@ -105,7 +105,8 @@ h2 {
 
 #content {
     grid-area: results;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px,1fr) );
     margin-left: 20px;
