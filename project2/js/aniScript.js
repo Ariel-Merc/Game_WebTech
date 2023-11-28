@@ -155,8 +155,11 @@ function dataLoaded(e) {
         let url = result.url;
 
         // Build a <div> to hold each result
-        let line = `<div class='result'><img src ='${smallURL}'/></div>`;
-        //line += `<span><a target='_blank' href='${url}'>View on Giphy</a> <p>Rating: ${result.rating.toUpperCase()}</span></div>`;
+        let line = `<div class='result'><a target='_blank' href='${result.url}'><img src ='${smallURL}' 
+                     alt='${result.name} image'></a>`;
+        line += `<span><p>Title: ${result.title}`;
+        line += `<p>Rating: ${result.rating}</span>`;
+        line += `<p>Score: ${result.score}</span></div>`;
 
         // add the <div> to bigString and loop
         bigString += line;
