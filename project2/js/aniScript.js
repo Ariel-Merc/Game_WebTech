@@ -1,13 +1,16 @@
+let filterList = [];
+let genreID = "&genres=";
+
 // 1
 window.onload = (e) => { 
     getPopular();
     getAttribute("genres");
-    document.querySelector("#search").onclick = searchButtonClicked 
+    document.querySelector("#search").onclick = searchButtonClicked;
 };
 
 // 2
 let displayTerm = "";
-let testLog = ""
+let testLog = "";
 
 // 3
 function searchButtonClicked() {
@@ -33,6 +36,9 @@ function searchButtonClicked() {
         url += "&q=" + term;
     };
 
+    //append genre filter
+    url += genreID;
+
     // append user chosen search limit to the url
     let limit = document.querySelector("#limit").value;
     url += "&limit=" + limit;
@@ -45,6 +51,9 @@ function searchButtonClicked() {
 
     // 12 Request data!
     getData(url);
+
+    // reset filters
+    genreID = "&genres=";
 }
 
 function getPopular() {
@@ -223,7 +232,7 @@ function loadAttribute(e) {
         let url = result.url;
 
         // Build a <div> to hold each result
-        let line = `<button type='button' id='search' class='${result.name}'>${result.name}</button>`;
+        let line = `<button value='${result.mal_id}' type='button' id='search' class='${result.name}'>${result.name}</button>`;
 
         // add the <div> to bigString and loop
         bigString += line;
@@ -231,4 +240,33 @@ function loadAttribute(e) {
 
     // show the html to the user
     document.querySelector(".filterButtons").innerHTML = bigString;
+
+    // add to filterlist
+    let nodeList = document.querySelectorAll(".filterButtons button");
+    nodeList.forEach(element => {
+        filterList.push(element);
+    });
+    if (filterList != null){
+        filterClicked();
+    }
+}
+
+
+function filterClicked() {
+    console.log("YOU'VE MADE IT THIS FAR");
+    filterList.forEach(element => {
+        element.onclick = function(){
+            if (genreID == "&genres="){
+                genreID += element.value;
+                console.log(genreID);
+            }
+            else{
+                genreID += "&";
+                genreID += element.value;
+                console.log(genreID);
+            };
+        }
+    });
+
+    console.log("loop over");
 }
