@@ -16,7 +16,12 @@ app.loader.
         "../images/background_1.png",
         "../images/background_2.png",
         "../images/Cat-2/cat.png",
-        "../images/jumpBG.png"
+        "../images/star.png",
+        "../images/cloud.png",
+        "../images/jumpBG.png",
+        "../images/sample.png",
+        "../images/sampleCatch.png",
+        "../images/sampleScore.png"
     ]);
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
@@ -27,8 +32,14 @@ let stage;
 
 // game variables
 let startScene;
-let gameScene, layerOne, layerTwo, layerThree, layerFour, player, star, scoreLabel, lifeLabel, jumpSound, collectSound;
+let instructScene;
+let gameScene, layerOne, layerTwo, layerThree, 
+    layerFour, player, star, scoreLabel, lifeLabel, 
+    jumpSound, collectSound;
 let gameOverScene;
+let startSceneBG;
+let instructSceneBG;
+let endSceneBG;
 
 let stars = [];
 let score = 0;
@@ -46,23 +57,29 @@ function setup() {
     
     // Create start scene
     startScene = new PIXI.Container();
-    startScene.visible = false;
+    startScene.visible = true;
     stage.addChild(startScene);
-    
+
+    // create instructions scene
+    instructScene = new PIXI.Container();
+    instructScene.visible = false;
+    stage.addChild(instructScene);
 
     // Create game scene
     gameScene = new PIXI.Container();
-    gameScene.visible = true;
+    gameScene.visible = false;
     stage.addChild(gameScene);
 
-    // #3 - Create the `gameOver` scene and make it invisible
+    // create game over scene
     gameOverScene = new PIXI.Container();
     gameOverScene.visible = false;
     stage.addChild(gameOverScene);
 
     
     
-    // create background
+    // create backgrounds
+
+    // game scene bg
     layerOne = new FirstLayer();
     gameScene.addChild(layerOne);
     layerTwo = new SecondLayer();
@@ -71,10 +88,28 @@ function setup() {
     gameScene.addChild(layerThree);
     layerFour = new SceneLayer();
     gameScene.addChild(layerFour);
+
+    // game over scene bg
+    startSceneBG = new FirstLayer();
+    startSceneBG.scale.set(5.5);
+    startScene.addChild(startSceneBG);
+
+    instructSceneBG = new FirstLayer();
+    instructSceneBG.scale.set(5.5);
+    instructScene.addChild(instructSceneBG);
+
+    endSceneBG = new FirstLayer();
+    endSceneBG.scale.set(5.5);
+    gameOverScene.addChild(endSceneBG);
     
     // Create player
     player = new Player();
     gameScene.addChild(player);
+
+    // #6 - Load Sounds
+    collectSound = new Howl({
+        src: ['../sfx/catchStar.wav']
+    });
 
     // #4 - Create labels for all 3 scenes
     createLabelsAndButtons();
@@ -104,58 +139,98 @@ function setup() {
 
 
 function createLabelsAndButtons() {
-    // let buttonstyle = new PIXI.TextStyle({
-    //     fill: 0xFF0000,
-    //     fontSize: 48,
-    //     fontFamily: "Futura"
-    // });
+    
+    // set up start scene
+    let bgStar = new Star(432, 200);
+    bgStar.scale.set(1.5);
+    startScene.addChild(bgStar);
+    
+    let startLabel1 = new PIXI.Text("STAR CATCHER!");
+    startLabel1.style = new PIXI.TextStyle({
+        fill: 0xf0b160,
+        fontSize: 83,
+        fontFamily: "Berkshire Swash, serif",
+        stroke: 0x6e4e85,
+        strokeThickness: 10
+    });
+    startLabel1.x = (sceneWidth/2)- (startLabel1.width/2);
+    startLabel1.y = 120;
+    startScene.addChild(startLabel1);
 
-    // // set up start scene
-    // let startLabel1 = new PIXI.Text("Circle Blast!");
-    // startLabel1.style = new PIXI.TextStyle({
-    //     fill: 0xFFFFFF,
-    //     fontSize: 96,
-    //     fontFamily: "Futura",
-    //     stroke: 0xFF0000,
-    //     strokeThickness: 6
-    // });
-    // startLabel1.x = 50;
-    // startLabel1.y = 120;
-    // startScene.addChild(startLabel1);
+    // make start game button
+    let startButton = new PIXI.Text("Start Catching");
+    let startButtonStyle = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 30,
+        fontFamily: "Arial",
+        stroke: 0x8cb6fa,
+        strokeThickness: 2
+    });
+    startButton.style = startButtonStyle;
+    startButton.x = (sceneWidth/2)- (startButton.width/2);
+    startButton.y = sceneHeight - 160;
+    startButton.interactive = true;
+    startButton.buttonMode = true;
+    startButton.on("pointerup", startGame);
+    startButton.on('pointerover', e => e.target.alpha = 0.7);
+    startButton.on('pointerout', e => e.currentTarget.alpha = 1.0);
+    startScene.addChild(startButton);
 
-    // // create middle label
-    // let startLabel2 = new PIXI.Text("R U Worthy...?");
-    // startLabel2.style = new PIXI.TextStyle({
-    //     fill: 0xFFFFFF,
-    //     fontSize: 32,
-    //     fontFamily: "Futura",
-    //     fontStyle: "italic",
-    //     stroke: 0xFF0000,
-    //     strokeThickness: 6
-    // });
-    // startLabel2.x = 185;
-    // startLabel2.y = 300;
-    // startScene.addChild(startLabel2);
+    // make instructions button
+    let instructButton = new PIXI.Text("Instructions");
+    instructButton.style = startButtonStyle;
+    instructButton.x = (sceneWidth/2)- (instructButton.width/2);
+    instructButton.y = startButton.y + 50;
+    instructButton.interactive = true;
+    instructButton.buttonMode = true;
+    instructButton.on("pointerup", instruct);
+    instructButton.on('pointerover', e => e.target.alpha = 0.7);
+    instructButton.on('pointerout', e => e.currentTarget.alpha = 1.0);
+    startScene.addChild(instructButton);
 
-    // // make start game button
-    // let startButton = new PIXI.Text("Enter...if you dare!");
-    // startButton.style = buttonstyle;
-    // startButton.x = 80;
-    // startButton.y = sceneHeight - 100;
-    // startButton.interactive = true;
-    // startButton.buttonMode = true;
-    // startButton.on("pointerup", startGame);
-    // startButton.on('pointerover', e => e.target.alpha = 0.7);
-    // startButton.on('pointerout', e => e.currentTarget.alpha = 1.0);
-    // startScene.addChild(startButton);
+    // set up instructions scene
+    let sampleImg = new Sample();
+    instructScene.addChild(sampleImg);
 
+    // make start game button
+    let backButton = new PIXI.Text("<-- Back");
+    let backButtonStyle = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 30,
+        fontFamily: "Arial",
+        stroke: 0x8cb6fa,
+        strokeThickness: 2
+    });
+    backButton.style = backButtonStyle;
+    backButton.x = (sceneWidth/2)- (startButton.width/2);
+    backButton.y = sceneHeight - 100;
+    backButton.interactive = true;
+    backButton.buttonMode = true;
+    backButton.on("pointerup", returnHome);
+    backButton.on('pointerover', e => e.target.alpha = 0.7);
+    backButton.on('pointerout', e => e.currentTarget.alpha = 1.0);
+    instructScene.addChild(backButton);
+
+    // add instructions
+    let instructPara = new PIXI.Text("Help the cat catch all the stars!\nThe more you catch the higher\nyour score! The more you drop \nthe lower your life points until\nGame Over.");
+    let instructParaStyle = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 20,
+        fontFamily: "Arial"
+        // stroke: 0x8cb6fa,
+        // strokeThickness: 2
+    });
+    instructPara.style = instructParaStyle;
+    instructPara.x = 525;
+    instructPara.y = 170;
+    instructScene.addChild(instructPara);
     
     // set up gameScene
     let textStyle = new PIXI.TextStyle({
-        fill: 0xFFFFFF,
-        fontSize: 18,
-        fontFamily: "Futura",
-        stroke: 0xFF0000,
+        fill: 0xf0b160,
+        fontSize: 22,
+        fontFamily: "Berkshire Swash, serif",
+        stroke: 0x6e4e85,
         strokeThickness: 4
     });
 
@@ -165,57 +240,77 @@ function createLabelsAndButtons() {
     scoreLabel.x = 5;
     scoreLabel.y = 5;
     gameScene.addChild(scoreLabel);
-    increaseScoreBy(0);
+    increaseScore(0);
 
     // make life label
     lifeLabel = new PIXI.Text();
     lifeLabel.style = textStyle;
     lifeLabel.x = 5;
-    lifeLabel.y = 26;
+    lifeLabel.y = 37;
     gameScene.addChild(lifeLabel);
-    decreaseLifeBy(0);
-    startGame();
-    // // 3 - set up `gameOverScene`
-    // // 3A - make game over text
-    // let gameOverText = new PIXI.Text("Game Over!\n        :-O");
-    // textStyle = new PIXI.TextStyle({
-    //     fill: 0xFFFFFF,
-    //     fontSize: 64,
-    //     fontFamily: "Futura",
-    //     stroke: 0xFF0000,
-    //     strokeThickness: 6
-    // });
-    // gameOverText.style = textStyle;
-    // gameOverText.x = 100;
-    // gameOverText.y = sceneHeight / 2 - 160;
-    // gameOverScene.addChild(gameOverText);
-
-    // // display score
-    // gameOverScoreLabel = new PIXI.Text("Your final score: " + score);
-    // let goStyle = new PIXI.TextStyle({
-    //     fill: 0xFFFFFF,
-    //     fontSize: 34,
-    //     fontFamily: "Futura",
-    //     stroke: 0xFF0000,
-    //     strokeThickness: 3
-    // });
-    // gameOverScoreLabel.style = goStyle;
-    // gameOverScoreLabel.x = 150;
-    // gameOverScoreLabel.y = gameOverText.y + 250;
-    // gameOverScene.addChild(gameOverScoreLabel);
+    decreaseLives(0);
+    //startGame();
 
 
-    // // 3B - make "play again?" button
-    // let playAgainButton = new PIXI.Text("Play Again?");
-    // playAgainButton.style = buttonstyle;
-    // playAgainButton.x = 150;
-    // playAgainButton.y = sceneHeight - 100;
-    // playAgainButton.interactive = true;
-    // playAgainButton.buttonMode = true;
-    // playAgainButton.on("pointerup", startGame); // startGame is a function reference
-    // playAgainButton.on('pointerover', e => e.target.alpha = 0.7); // concise arrow function with no brackets
-    // playAgainButton.on('pointerout', e => e.currentTarget.alpha = 1.0); // ditto
-    // gameOverScene.addChild(playAgainButton);
+    // set up gameOverScene
+
+    let bgCloud = new Cloud(432, 200);
+    gameOverScene.addChild(bgCloud);
+    // let statBox = new Box(0xc4c4c4);
+    // gameOverScene.addChild(statBox);
+
+    let gameOverText = new PIXI.Text("Game Over!");
+    textStyle = new PIXI.TextStyle({
+        fill: 0xf0b160,
+        fontSize: 120,
+        //fontfamily: "'Twinkle Star', cursive"
+        fontFamily: "Berkshire Swash, serif",
+        stroke: 0x6e4e85,
+        strokeThickness: 12
+    });
+    gameOverText.style = textStyle;
+    gameOverText.x =  (sceneWidth/2)- (gameOverText.width/2);
+    gameOverText.y = sceneHeight / 2 - 160;
+    gameOverScene.addChild(gameOverText);
+
+    // display score
+    gameOverScoreLabel = new PIXI.Text("Score: " + score);
+    let gameOverStyle = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 30,
+        fontFamily: "Arial",
+        stroke: 0x8cb6fa,
+        strokeThickness: 3
+    });
+    gameOverScoreLabel.style = gameOverStyle;
+    gameOverScoreLabel.x = (sceneWidth/2)- (gameOverScoreLabel.width/2);
+    gameOverScoreLabel.y = gameOverText.y + 170;
+    gameOverScene.addChild(gameOverScoreLabel);
+
+
+    // replay button
+    let playAgainButton = new PIXI.Text("Replay?");
+    playAgainButton.style = gameOverStyle;
+    playAgainButton.x = (sceneWidth/2)- (playAgainButton.width/2);
+    playAgainButton.y = gameOverScoreLabel.y + 50;
+    playAgainButton.interactive = true;
+    playAgainButton.buttonMode = true;
+    playAgainButton.on("pointerup", startGame); // startGame is a function reference
+    playAgainButton.on('pointerover', e => e.target.alpha = 0.7); // concise arrow function with no brackets
+    playAgainButton.on('pointerout', e => e.currentTarget.alpha = 1.0); // ditto
+    gameOverScene.addChild(playAgainButton);
+
+    // go home button
+    let homeButton = new PIXI.Text("Home");
+    homeButton.style = gameOverStyle;
+    homeButton.x = (sceneWidth/2)- (homeButton.width/2);
+    homeButton.y = playAgainButton.y + 50;
+    homeButton.interactive = true;
+    homeButton.buttonMode = true;
+    homeButton.on("pointerup", returnHome); // startGame is a function reference
+    homeButton.on('pointerover', e => e.target.alpha = 0.7); // concise arrow function with no brackets
+    homeButton.on('pointerout', e => e.currentTarget.alpha = 1.0); // ditto
+    gameOverScene.addChild(homeButton);
 
 }
 
@@ -226,30 +321,38 @@ function startGame() {
     levelNum = 1;
     score = 0;
     lives = 100;
-    increaseScoreBy(0);
-    decreaseLifeBy(0);
+    increaseScore(0);
+    decreaseLives(0);
     player.x = 450;
     player.y = 230;
     loadLevel();
 
-    
 }
 
-function loadLevel() {
-    //createCircles(levelNum * 5);
-    paused = false;
+function returnHome(){
+    startScene.visible = true;
+    instructScene.visible = false;
+    gameOverScene.visible = false;
+    gameScene.visible = false;
 }
 
+function instruct(){
+    startScene.visible = false;
+    instructScene.visible = true;
+    gameOverScene.visible = false;
+    gameScene.visible = false;
 
-function increaseScoreBy(value) {
+}
+
+function increaseScore(value) {
     score += value;
     scoreLabel.text = "Score  " + score;
 }
 
-function decreaseLifeBy(value) {
+function decreaseLives(value) {
     lives -= value;
     lives = parseInt(lives);
-    lifeLabel.text = "Life    " + lives + "%";
+    lifeLabel.text = "Life    " + lives;
 }
 
 function gameLoop(){
@@ -268,19 +371,21 @@ function gameLoop(){
     player.y +=5;
     let w2 = player.width / 2;
     let h2 = player.height / 2;
-    if (player.y > 285){
-        player.x = clamp(player.x, 220, sceneWidth - w2);
-    }
-    else{
-        player.x = clamp(player.x, 0 + w2, sceneWidth - w2);
-    }
+    player.x = clamp(player.x, 0 + w2, sceneWidth - w2);
+    player.y = clamp(player.y, 0 + h2, 430);
+    // if (player.y > 285){
+    //     player.x = clamp(player.x, 220, sceneWidth - w2);
+    // }
+    // else{
+    //     player.x = clamp(player.x, 0 + w2, sceneWidth - w2);
+    // }
     
-    if (player.x < 290){
-        player.y = clamp(player.y, 0 + h2, 280);
-    }
-    else{
-        player.y = clamp(player.y, 0 + h2, 430);
-    }
+    // if (player.x < 290){
+    //     player.y = clamp(player.y, 0 + h2, 280);
+    // }
+    // else{
+    //     player.y = clamp(player.y, 0 + h2, 430);
+    // }
 
     // if (isJumping){
     //     player.y -= 5;
@@ -290,17 +395,60 @@ function gameLoop(){
     //     jumpCount = 0;
     //     isJumping = false
     // }
-   
+
+    // Make the stars fall
+    for (let s of stars) {
+        s.y += 2;
+    }
+
+    // Check Collisions
+    for (let s of stars) {
+
+        // player and stars
+        if (s.isAlive && rectsIntersect(s, player)) {
+            collectSound.play();
+            gameScene.removeChild(s);
+            s.isAlive = false;
+            increaseScore(10);
+        }
+    }
+
+    // Check for dropped stars
+    for (let s of stars) {
+        if (s.y > 450-s.height){
+            gameScene.removeChild(s);
+            s.isAlive = false;
+            decreaseLives(5);
+        }
+    }
+
+    // get rid of removed stars
+    stars = stars.filter(s => s.isAlive);
+
+    // que game over
+    if (lives <= 0) {
+        end();
+        return; // return here so we skip #8 below
+    }
+
+    //Load next level
+    if (stars.length == 0) {
+        if (levelNum < 5){
+            levelNum++;
+        }
+        loadLevel();
+    }
+
 }
 
 function keysDown(e){
     if(e.keyCode == 37) {
         console.log("Left was pressed");
-        player.x -= 10;
+        player.x -= 15;
     }
     else if(e.keyCode == 39) {
         console.log("Right was pressed");
-        player.x += 10;
+        player.x += 15;
     }
 }
 
@@ -318,6 +466,39 @@ function JumpUp(e){
             
         // }
     }
+}
+
+function createStars(numStars) {
+    for (let i = 0; i < numStars; i++) {
+        let s = new Star();
+        s.x = Math.random() * (sceneWidth - 50) + 25;
+        s.y = Math.random() * (0 - -500) - 500;
+        stars.push(s);
+        gameScene.addChild(s);
+    }
+}
+
+function loadLevel() {
+    createStars(levelNum * 2);
+    paused = false;
+}
+
+function end() {
+    paused = true;
+    // clear level
+    stars.forEach(s => gameScene.removeChild(s));
+    stars = [];
+
+    // bullets.forEach(b => gameScene.removeChild(b))
+    // bullets = [];
+
+    // explosions.forEach(e => gameScene.removeChild(e));
+    // explosions = [];
+
+    gameOverScoreLabel.text = "Score " + score;
+
+    gameOverScene.visible = true;
+    gameScene.visible = false;
 }
 
 // function loadSpriteSheet(){

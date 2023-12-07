@@ -166,7 +166,7 @@ function createLabelsAndButtons() {
     scoreLabel.x = 5;
     scoreLabel.y = 5;
     gameScene.addChild(scoreLabel);
-    increaseScoreBy(0);
+    increaseScore(0);
 
     // make life label
     lifeLabel = new PIXI.Text();
@@ -174,7 +174,7 @@ function createLabelsAndButtons() {
     lifeLabel.x = 5;
     lifeLabel.y = 26;
     gameScene.addChild(lifeLabel);
-    decreaseLifeBy(0);
+    decreaseLives(0);
 
     // 3 - set up `gameOverScene`
     // 3A - make game over text
@@ -227,19 +227,19 @@ function startGame() {
     levelNum = 1;
     score = 0;
     life = 100;
-    increaseScoreBy(0);
-    decreaseLifeBy(0);
+    increaseScore(0);
+    decreaseLives(0);
     ship.x = 300;
     ship.y = 550;
     loadLevel();
 }
 
-function increaseScoreBy(value) {
+function increaseScore(value) {
     score += value;
     scoreLabel.text = "Score  " + score;
 }
 
-function decreaseLifeBy(value) {
+function decreaseLives(value) {
     life -= value;
     life = parseInt(life);
     lifeLabel.text = "Life    " + life + "%";
@@ -303,7 +303,7 @@ function gameLoop() {
                 c.isAlive = false;
                 gameScene.removeChild(b);
                 b.isAlive = false;
-                increaseScoreBy(1);
+                increaseScore(1);
             }
 
             if (b.y < -10) b.isAlive = false;
@@ -314,7 +314,7 @@ function gameLoop() {
             hitSound.play();
             gameScene.removeChild(c);
             c.isAlive = false;
-            decreaseLifeBy(20);
+            decreaseLives(20);
         }
     }
 
