@@ -3,13 +3,15 @@ const app = new PIXI.Application({
     width: 864,
     height: 540
 });
-document.body.appendChild(app.view);
+let designatedSpace= document.querySelector(".content");
+designatedSpace.appendChild(app.view);
+
 
 // dimensions
 const sceneWidth = app.view.width;
 const sceneHeight = app.view.height;
 
-// pre-load the images (this code works with PIXI v6)
+// pre-load the images
 app.loader.
     add([
         "../images/background_0.png",
@@ -32,14 +34,15 @@ let stage;
 
 // game variables
 let startScene;
+let startSceneBG;
 let instructScene;
 let gameScene, layerOne, layerTwo, layerThree, 
     layerFour, player, star, scoreLabel, lifeLabel, 
     jumpSound, collectSound;
 let gameOverScene;
-let startSceneBG;
-let instructSceneBG;
 let endSceneBG;
+let instructSceneBG;
+
 
 let stars = [];
 let score = 0;
@@ -50,6 +53,8 @@ let lives = 50;
 let levelNum = 1;
 let paused = true;
 let isJumping = false;
+let moveLeft = false;
+let moveRight = false;
 let jumpCount = 0;
 
 function setup() {
@@ -128,6 +133,10 @@ function setup() {
     // explosionTextures = loadSpriteSheet();
 
     // // #8 - Start update loop
+    
+    window.addEventListener("keydown", keysDown);
+    window.addEventListener("keyup", keysUp);
+
     app.ticker.add(gameLoop);
 
     // // #9 - Start listening for click events on the canvas
@@ -275,6 +284,13 @@ function createLabelsAndButtons() {
 
     // display score
     gameOverScoreLabel = new PIXI.Text("Score: " + score);
+    let gameOverScoreStyle = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 47,
+        fontFamily: "Arial",
+        stroke: 0xf0b160,
+        strokeThickness: 13
+    });
     let gameOverStyle = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 30,
@@ -282,9 +298,9 @@ function createLabelsAndButtons() {
         stroke: 0x8cb6fa,
         strokeThickness: 3
     });
-    gameOverScoreLabel.style = gameOverStyle;
+    gameOverScoreLabel.style = gameOverScoreStyle;
     gameOverScoreLabel.x = (sceneWidth/2)- (gameOverScoreLabel.width/2);
-    gameOverScoreLabel.y = gameOverText.y + 170;
+    gameOverScoreLabel.y = gameOverText.y + 155;
     gameOverScene.addChild(gameOverScoreLabel);
 
 
@@ -292,7 +308,7 @@ function createLabelsAndButtons() {
     let playAgainButton = new PIXI.Text("Replay?");
     playAgainButton.style = gameOverStyle;
     playAgainButton.x = (sceneWidth/2)- (playAgainButton.width/2);
-    playAgainButton.y = gameOverScoreLabel.y + 50;
+    playAgainButton.y = gameOverScoreLabel.y + 100;
     playAgainButton.interactive = true;
     playAgainButton.buttonMode = true;
     playAgainButton.on("pointerup", startGame); // startGame is a function reference
@@ -358,43 +374,37 @@ function decreaseLives(value) {
 function gameLoop(){
     if (paused) return; 
 
-    
-
     // Player Movement
     //let mousePosition = app.renderer.plugins.interaction.mouse.global;
     
-    window.addEventListener("keydown", keysDown);
-    window.addEventListener("keydown", JumpUp);
 
     // keep player on screen
     
     player.y +=5;
+
     let w2 = player.width / 2;
     let h2 = player.height / 2;
     player.x = clamp(player.x, 0 + w2, sceneWidth - w2);
     player.y = clamp(player.y, 0 + h2, 430);
-    // if (player.y > 285){
-    //     player.x = clamp(player.x, 220, sceneWidth - w2);
-    // }
-    // else{
-    //     player.x = clamp(player.x, 0 + w2, sceneWidth - w2);
-    // }
-    
-    // if (player.x < 290){
-    //     player.y = clamp(player.y, 0 + h2, 280);
-    // }
-    // else{
-    //     player.y = clamp(player.y, 0 + h2, 430);
-    // }
+    if (player.y < 150 && player.x > 290 && player.x < 525){
+        player.y = clamp(player.y, 0 + h2, 120);
+    }
+    else if (player.x < 219){
+        player.y = clamp(player.y, 0 + h2, 285); //525 290
+    }
 
-    // if (isJumping){
-    //     player.y -= 5;
-    //     jumpCount += 1;
-    // }
-    // if (jumpCount > 20){
-    //     jumpCount = 0;
-    //     isJumping = false
-    // }
+    if (moveLeft && player.x > 220){
+        player.x -= 5;
+    }
+    else if (moveLeft && player.y < 287){
+        player.x -= 5;
+    }
+    if (moveRight){
+        player.x += 5;
+    }
+    if (isJumping){
+        player.y -= 10;
+    }
 
     // Make the stars fall
     for (let s of stars) {
@@ -407,6 +417,7 @@ function gameLoop(){
         // player and stars
         if (s.isAlive && rectsIntersect(s, player)) {
             collectSound.play();
+            s.tint = 0x279c21;
             gameScene.removeChild(s);
             s.isAlive = false;
             increaseScore(10);
@@ -416,6 +427,7 @@ function gameLoop(){
     // Check for dropped stars
     for (let s of stars) {
         if (s.y > 450-s.height){
+            s.tint = 0xab1d1d;
             gameScene.removeChild(s);
             s.isAlive = false;
             decreaseLives(5);
@@ -444,27 +456,30 @@ function gameLoop(){
 function keysDown(e){
     if(e.keyCode == 37) {
         console.log("Left was pressed");
-        player.x -= 15;
+        moveLeft = true;
     }
-    else if(e.keyCode == 39) {
+    if(e.keyCode == 39) {
         console.log("Right was pressed");
-        player.x += 15;
+        moveRight = true;
+    }
+    if (e.keyCode == 38) {
+        console.log("Up was pressed");
+        isJumping = true;
     }
 }
 
-function JumpUp(e){
+function keysUp(e){
+    if(e.keyCode == 37) {
+        console.log("Left was released");
+        moveLeft = false;
+    }
+    if(e.keyCode == 39) {
+        console.log("Right was released");
+        moveRight = false;
+    }
     if (e.keyCode == 38) {
-        console.log("Up was pressed");
-        //isJumping = true
-        player.y -= 20;
-        // Calculate "delta time"
-        // let dt = 1 / app.ticker.FPS;
-        // if (dt > 1 / 12) { dt = 1 / 12 };
-        // let futureTime = dt+10;
-        
-        // while (dt< futureTime){
-            
-        // }
+        console.log("Up was released");
+        isJumping = false;
     }
 }
 
@@ -472,7 +487,13 @@ function createStars(numStars) {
     for (let i = 0; i < numStars; i++) {
         let s = new Star();
         s.x = Math.random() * (sceneWidth - 50) + 25;
-        s.y = Math.random() * (0 - -500) - 500;
+        if (stars.length > 0){
+            s.y = stars[stars.length-1].y - 100;
+        }
+        else{
+            s.y = Math.random() * (-600 - -500);
+        }
+        
         stars.push(s);
         gameScene.addChild(s);
     }
@@ -500,31 +521,3 @@ function end() {
     gameOverScene.visible = true;
     gameScene.visible = false;
 }
-
-// function loadSpriteSheet(){
-//     let spriteSheet = PIXI.BaseTexture.from("../images/Cat-2/Cat-2-Walk.png");
-//     let width = 50;
-//     let height = 50;
-//     console.log(height);
-//     let numFrames = 8;
-//     let textures = [];
-//     for (let i=0; i<numFrames; i++){
-//         let frame = new PIXI.Texture(spriteSheet, new PIXI.Rectangle(i*width, 50, width, height));
-//         textures.push(frame);
-//     }
-//     return textures;
-// }
-
-// function createCat(x, y, frameWidth, frameHeight){
-//     let w2 = frameWidth/2;
-//     let h2 = frameHeight/2;
-//     let catAnim = new PIXI.AnimatedSprite(catTextures);
-//     catAnim.x = x- w2;
-//     catAnim.y = y - h2;
-//     catAnim.animatedSpeed = 1/7;
-//     catAnim.loop = true;
-//     //catAnim.onComplete = e => gameScene.removeChild(catAnim);
-//     cats.push(catAnim);
-//     gameScene.addChild(catAnim);
-//     catAnim.play();
-// }

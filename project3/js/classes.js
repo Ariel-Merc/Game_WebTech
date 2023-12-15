@@ -1,5 +1,5 @@
 class Player extends PIXI.Sprite {
-    constructor(x=0, y=0) {
+    constructor(x=450, y=230) {
         // get the character asset
         super(app.loader.resources["../images/Cat-2/cat.png"].texture);
         this.anchor.set(.5, .5);
@@ -17,6 +17,7 @@ class Star extends PIXI.Sprite {
         this.scale.set(0.1);
         this.x = x;
         this.y = y;
+        this.tint = 0xFFFFFF;
 
         // variables
         this.isAlive = true;

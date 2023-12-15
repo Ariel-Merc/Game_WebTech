@@ -1,0 +1,21 @@
+* {
+    background-color: rgb(205, 197, 238);
+}
+
+body {
+    display: grid;
+    margin: 7% 1%;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: "spaceLeft content spaceRight";
+
+}
+
+.spaceLeft {
+    grid-area: spaceLeft;
+}
+.content {
+    grid-area: content;
+}
+.spaceRight {
+    grid-area: spaceRight;
+}
